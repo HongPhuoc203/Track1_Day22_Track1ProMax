@@ -58,31 +58,42 @@
   "legal_classification": {
     "vietnam": {
       "status": "uncertain-requires-legal-review",
-      "rationale": "<FILL>",
-      "source_ids": ["SRC-01"]
+      "rationale": "The pilot processes applicant and assessment data and can influence access to employment, but the exact classification depends on the final role of the employer, vendor and deployer, the approved data flow, the target market and the current Vietnamese implementing instruments. A legal and privacy review must map the concrete workflow to the AI Law and the official high-risk list before any production release.",
+      "source_ids": ["SRC-05", "SRC-06"]
     },
     "eu": {
-      "status": "uncertain-requires-legal-review",
-      "rationale": "<FILL>",
-      "source_ids": ["SRC-02"]
+      "status": "high-risk",
+      "rationale": "The European Commission lists employment AI, including CV-sorting software for recruitment, among high-risk use cases. This product recommends review priority in an employment workflow, so the team should treat the pilot as high-risk for planning and complete role-specific legal review of provider and deployer responsibilities, timing and evidence obligations.",
+      "source_ids": ["SRC-04"]
     },
-    "other_markets": "<FILL OR not assessed>",
+    "other_markets": "The United States is not in the pilot target market; any later launch requires separate employment discrimination, accessibility, privacy and vendor-contract review.",
     "legal_review_required": true
   },
   "product_metrics": {
-    "success_kpi": "<PRODUCT OUTCOME + TARGET>",
-    "risk_kri": "<RISK INDICATOR + TARGET>",
-    "guardrail_metric": "<HARD LIMIT + TARGET>",
-    "review_cadence": "<CADENCE + EVENT TRIGGERS>"
+    "success_kpi": "Median time from a complete application to the first qualified recruiter review is at most two business days during the pilot, measured monthly by role and market.",
+    "risk_kri": "The recall gap for qualified applicants between monitored groups is at most five percentage points in each release evaluation and monthly production review, with near-threshold cases reported separately.",
+    "guardrail_metric": "Automatic rejection count is exactly zero, and 100 percent of adverse outcomes have a human review record, reason code, job-relevant evidence and an available appeal path in every reporting period.",
+    "review_cadence": "Review monthly and before any material change to model, vendor, data fields, job criteria, workflow, target group or market; trigger an immediate review after an incident, appeal pattern or threshold breach."
   },
   "release_decision": {
-    "accountable_product_owner": "<ROLE, NOT PERSON>",
-    "risk_acceptance_owner": "<ROLE WITH AUTHORITY>",
-    "independent_reviewer": "<ROLE, NOT PERSON>",
-    "decision": "research-only",
-    "release_blockers": ["GAP-01: <FILL OR use none when no blocker>"],
-    "release_conditions": ["<FILL>"],
-    "next_review_trigger": "<DATE, METRIC, INCIDENT OR SCOPE CHANGE>",
-    "residual_risk_rationale": "<FILL>"
+    "accountable_product_owner": "Talent Product Owner",
+    "risk_acceptance_owner": "Head of Talent Acquisition",
+    "independent_reviewer": "Responsible AI and Privacy Review Board",
+    "decision": "conditional-go",
+    "release_blockers": [
+      "GAP-01: legal and privacy classification for Vietnam is not signed",
+      "GAP-02: EU high-risk applicability and launch evidence are not independently approved",
+      "GAP-03: no-auto-reject and meaningful human review controls are not yet acceptance-tested",
+      "GAP-04: subgroup evaluation and monitoring evidence are not yet complete",
+      "GAP-05: vendor data-flow, retention and appeal evidence are not yet approved"
+    ],
+    "release_conditions": [
+      "Pilot remains limited to approved job families, markets and job-relevant inputs",
+      "Automatic rejection and score-only adverse decisions remain technically and procedurally blocked",
+      "All five blocking gaps reach done with signed acceptance evidence before pilot launch",
+      "The manual fallback, appeal path and on-call pause owner are rehearsed before activation"
+    ],
+    "next_review_trigger": "Review before the 2026-10-15 pilot decision and immediately after any automatic rejection, subgroup recall gap above five percentage points, privacy incident, material vendor/model/data/scope/market change or repeated appeal pattern.",
+    "residual_risk_rationale": "A recommendation can still influence recruiter attention and reproduce hidden disparity even with a human in the loop. The conditional decision is limited to a controlled pilot because automatic rejection is prohibited, fallback is manual, appeal and override are required, and release is blocked until legal, subgroup, vendor and human-oversight evidence is signed."
   }
 }
