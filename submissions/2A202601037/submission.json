@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "metadata": {
+    "student_name": "Nguyen Dao Nam Hai",
+    "student_id": "2A202601037",
+    "group_id": "HR-GROUP-01",
+    "submitted_at": "2026-08-24T12:30:00+07:00"
+  },
+  "industry": "hr-recruitment",
+  "product_context": {
+    "product_name": "Candidate Evidence Review Assistant",
+    "product_stage": "pilot",
+    "problem_statement": "Recruiters need to review high-volume applications consistently, while manual triage can delay qualified candidates and make it difficult to explain why an application received limited attention.",
+    "target_users": ["recruiters", "hiring managers"],
+    "value_hypothesis": "A recommendation workflow that surfaces job-relevant evidence and missing information can reduce recruiter triage time while preserving applicant access, human accountability and the ability to appeal a decision.",
+    "in_scope": [
+      "Extract job-relevant evidence from applications for recruiter review",
+      "Recommend a review order without making a final hiring decision",
+      "Flag missing or inconsistent application information",
+      "Provide subgroup monitoring and audit evidence for the release team"
+    ],
+    "non_goals": [
+      "Automatic rejection or automatic advancement",
+      "Final hiring decisions without a human reviewer",
+      "Personality, emotion, protected-attribute or biometric inference",
+      "Using private applicant data outside the approved hiring workflow"
+    ],
+    "user_journey_moment": "After an application passes a completeness check and before a recruiter begins shortlist review",
+    "target_launch_or_review_date": "2026-10-15",
+    "automation_level": "recommendation",
+    "fallback_experience": "If the assistant is unavailable, uncertain, paused or outside its approved scope, the recruiter uses the standard manual queue and documented job criteria; no applicant is automatically rejected because the assistant is unavailable.",
+    "decision_reversibility": "partially-reversible"
+  },
+  "system_profile": {
+    "purpose": "Support recruiter review of applications for entry-level and professional roles by organizing job-relevant evidence and recommending which applications should receive attention first.",
+    "user_groups": ["recruiters", "hiring managers", "responsible AI reviewers", "appeal reviewers"],
+    "decision_impact": "The assistant can influence which applicants receive timely human attention and therefore can affect access to interviews and employment, even though it does not make the final hiring decision.",
+    "data_types": ["CV and application content", "job criteria", "assessment responses", "workflow decisions", "audit and appeal records"],
+    "deployment_context": "A private employer operates a pilot using a vendor-hosted application portal and recruiter dashboard for applicants in Vietnam and the European Union.",
+    "target_markets": ["Vietnam", "European Union"],
+    "system_boundary": {
+      "model": "A ranking and evidence-extraction service constrained by approved job criteria and monitored for subgroup performance",
+      "application": "Candidate application portal, recruiter review dashboard, audit log and appeal workflow",
+      "people": ["applicants", "recruiters", "hiring managers", "appeal reviewers", "compliance reviewers"],
+      "vendors": ["application hosting provider", "screening service provider", "assessment provider"],
+      "upstream_inputs": ["approved job criteria", "candidate applications", "assessment responses", "vendor configuration", "historical data used for evaluation"],
+      "downstream_decisions": ["manual review priority", "request for additional information", "invite to interview", "reject after documented human review", "pause or escalate the workflow"]
+    }
+  },
+  "industry_risk_snapshot": {
+    "harm_severity": 0,
+    "high_stakes": 0,
+    "sensitive_data": 0,
+    "affected_scale": 0,
+    "human_review_need": 0,
+    "rationale": "<Explain the 1-5 ratings with evidence. This score is not a legal classification.>"
+  },
+  "legal_classification": {
+    "vietnam": {
+      "status": "uncertain-requires-legal-review",
+      "rationale": "<FILL>",
+      "source_ids": ["SRC-01"]
+    },
+    "eu": {
+      "status": "uncertain-requires-legal-review",
+      "rationale": "<FILL>",
+      "source_ids": ["SRC-02"]
+    },
+    "other_markets": "<FILL OR not assessed>",
+    "legal_review_required": true
+  },
+  "product_metrics": {
+    "success_kpi": "<PRODUCT OUTCOME + TARGET>",
+    "risk_kri": "<RISK INDICATOR + TARGET>",
+    "guardrail_metric": "<HARD LIMIT + TARGET>",
+    "review_cadence": "<CADENCE + EVENT TRIGGERS>"
+  },
+  "release_decision": {
+    "accountable_product_owner": "<ROLE, NOT PERSON>",
+    "risk_acceptance_owner": "<ROLE WITH AUTHORITY>",
+    "independent_reviewer": "<ROLE, NOT PERSON>",
+    "decision": "research-only",
+    "release_blockers": ["GAP-01: <FILL OR use none when no blocker>"],
+    "release_conditions": ["<FILL>"],
+    "next_review_trigger": "<DATE, METRIC, INCIDENT OR SCOPE CHANGE>",
+    "residual_risk_rationale": "<FILL>"
+  }
+}
