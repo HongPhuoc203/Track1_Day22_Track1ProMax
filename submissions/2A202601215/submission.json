@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0.0",
+  "metadata": {
+    "student_name": "Phùng Hồng Phước",
+    "student_id": "2A202601215",
+    "group_id": "Track 1 ProMax",
+    "submitted_at": "2026-08-24T14:00:00+07:00"
+  },
+  "industry": "hr-recruitment",
+  "product_context": {
+    "product_name": "AI Recruiter",
+    "product_stage": "pilot",
+    "problem_statement": "Our recruiters spend a lot of time opening incomplete applications for customer-support roles in Vietnam. Criteria also change a bit by shift, so some good candidates wait too long for a first look.",
+    "target_users": ["recruiters", "hiring managers"],
+    "value_hypothesis": "If we show recruiters a suggested review order plus missing-field flags, and we keep reject/hire in human hands, first review of complete applications should happen within two business days without a worse gap between monitored groups.",
+    "in_scope": [
+      "show job-criteria evidence from the submitted file",
+      "suggest a review order for complete applications",
+      "flag missing required fields",
+      "log override, pause, and appeal"
+    ],
+    "non_goals": [
+      "auto-reject anyone",
+      "auto-book interviews",
+      "final hire or salary decision",
+      "guess personality from social media",
+      "launch in the EU this time"
+    ],
+    "user_journey_moment": "After the application is marked complete, before the recruiter makes a first-round shortlist",
+    "target_launch_or_review_date": "2026-10-15",
+    "automation_level": "recommendation",
+    "fallback_experience": "If AI Recruiter is down, paused, or looks unsafe, recruiters go back to the normal chronological list of complete applications. The tool cannot drop a candidate by itself. The on-call recruiter lead can pause it without waiting for the vendor.",
+    "decision_reversibility": "partially-reversible"
+  },
+  "system_profile": {
+    "purpose": "Help recruiters review complete applications for entry-level customer-support jobs and suggest who to look at first. Humans still reject and interview.",
+    "user_groups": ["recruiters", "hiring managers"],
+    "decision_impact": "The ranking can change who gets seen first, so someone can miss an interview slot even if we never auto-reject. Applicants are affected even though they are not users of the recruiter screen.",
+    "data_types": [
+      "resume and application answers",
+      "job criteria we published",
+      "missing-field flags",
+      "override and appeal logs"
+    ],
+    "deployment_context": "Small Vietnam pilot for one company. Vendor hosts the screening workspace. Applicants apply on the careers site; they do not use the ranking dashboard.",
+    "target_markets": ["Vietnam"],
+    "system_boundary": {
+      "model": "ranking plus simple completeness rules",
+      "application": "careers site, recruiter dashboard, audit log",
+      "people": [
+        "applicants",
+        "recruiters",
+        "hiring managers",
+        "appeal reviewer",
+        "on-call recruiter lead"
+      ],
+      "vendors": ["screening workspace vendor", "careers site host"],
+      "upstream_inputs": [
+        "job criteria",
+        "candidate applications",
+        "old shortlist results for offline tests only"
+      ],
+      "downstream_decisions": [
+        "invite to interview",
+        "ask another human to review",
+        "reject after a named recruiter review",
+        "pause or roll back the tool"
+      ]
+    }
+  },
+  "industry_risk_snapshot": {
+    "harm_severity": 4,
+    "high_stakes": 4,
+    "sensitive_data": 4,
+    "affected_scale": 4,
+    "human_review_need": 5,
+    "rationale": "This is hiring, so a bad filter can cost someone a job and income. EEOC reported more than 200 older applicants auto-rejected in the iTutorGroup case, which is why I scored severity and stakes at 4. Resumes are personal data, so sensitive data is 4. A busy CS role can mean hundreds of applicants, so scale is 4. Human review need is 5 because I do not think a recommendation tool is safe without a real reject review, appeal, and a hard no-auto-reject rule. These numbers are only triage, not a legal class."
+  },
+  "legal_classification": {
+    "vietnam": {
+      "status": "uncertain-requires-legal-review",
+      "rationale": "I read that Vietnam AI Law is in force and there is a high-risk list, but I am an intern and cannot map our exact workflow or vendor role from titles alone. We should not put this in front of applicants until legal signs a memo.",
+      "source_ids": ["SRC-04", "SRC-05"]
+    },
+    "eu": {
+      "status": "high-risk",
+      "rationale": "From the Commission page, AI used in recruitment sits in a high-risk employment area. We are not launching in the EU now. If we ever do, legal has to re-check dates and duties. I am not giving legal advice.",
+      "source_ids": ["SRC-06"]
+    },
+    "other_markets": "US hiring-discrimination rules and other ASEAN countries are out of scope for this pilot. Ask counsel before any expansion.",
+    "legal_review_required": true
+  },
+  "product_metrics": {
+    "success_kpi": "Median time from complete application to first recruiter review is two business days or less, measured weekly in the Vietnam CS hiring pilot.",
+    "risk_kri": "For age and sex groups with at least 30 complete applications in 30 days, the selection rate should stay at least 80 percent of the highest group. If recruiters almost never override the rank, we investigate over-reliance.",
+    "guardrail_metric": "Automatic rejection count must stay at zero. If it is not zero, pause the tool the same day. We do not trade this for a faster KPI.",
+    "review_cadence": "Weekly in the pilot. Also review right away if the vendor, model, job rules, data, or market changes, or if the KRI/guardrail breaks."
+  },
+  "release_decision": {
+    "accountable_product_owner": "Talent Product Owner",
+    "risk_acceptance_owner": "Head of Talent Acquisition",
+    "independent_reviewer": "Responsible AI Review Board",
+    "decision": "conditional-go",
+    "release_blockers": [
+      "GAP-01: Vietnam legal memo and AI inventory not signed yet",
+      "GAP-02: We have not proven there is no auto-reject path",
+      "GAP-03: Group monitoring and pause rule not checked by someone independent yet",
+      "GAP-04: Personal-data inventory not signed yet"
+    ],
+    "release_conditions": [
+      "no auto-reject in the release candidate or live config",
+      "named appeal person who can put a candidate back within two business days",
+      "signed Vietnam classification memo that matches the live flow",
+      "weekly KRI view and pause right for the on-call recruiter lead",
+      "EU and other-market switches stay off"
+    ],
+    "next_review_trigger": "Review if a guardrail or KRI breaks, if vendor or model changes, if we add a market, if there is an applicant incident, or on 2026-10-15, whichever is first.",
+    "residual_risk_rationale": "I still worry ranking can hide good people. I can only accept that for a Vietnam recommendation pilot if reject stays human, appeal works, fallback is the old list, and we pause on auto-reject or a bad group gap. This is not a compliance certificate."
+  }
+}
